@@ -82,4 +82,48 @@ npm install bcryptjs
 
 #Instalación de validadores
 npm install class-validator class-transformer
+
+```
+
+## Instalación de Swagger
+```
+npm install --save @nestjs/swagger swagger-ui-express
+```
+
+<li>
+  <ol>Abre el archivo src/main.ts.</ol>
+  <ol>Importa las clases necesarias (DocumentBuilder, SwaggerModule).</ol>
+  <ol>Agrega la configuración antes de app.listen.</ol>
+<li>
+
+```
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'; // <--- 1. IMPORTAR
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  // Configuración de CORS (que hablamos antes)
+  app.enableCors();
+
+  // ---> 2. CONFIGURACIÓN DE SWAGGER (INICIO)
+  const config = new DocumentBuilder()
+    .setTitle('API de Encomiendas')
+    .setDescription('Documentación para el sistema de gestión de pedidos')
+    .setVersion('1.0')
+    .addTag('encomiendas') // Opcional, para agrupar
+    .build();
+  
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document); 
+  // 'api' es la ruta. Entrarás por http://localhost:3000/api
+  // ---> FIN CONFIGURACIÓN SWAGGER
+
+  await app.listen(3000);
+
+  console.log(' Aplicación corriendo en: http://localhost:' + port);
+  console.log(' Swagger UI:           http://localhost:' + port + '/docs');
+}
+bootstrap();
 ```
