@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { EncomiendasModule } from './encomiendas/encomiendas.module';
+import { Encomienda } from './encomiendas/entities/encomienda.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,7 +21,7 @@ import { EncomiendasModule } from './encomiendas/encomiendas.module';
       username: process.env.DB_USERNAME || 'mysql',
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User],
+      entities: [User, Encomienda],
       synchronize: true,
     }),
     AuthModule,
