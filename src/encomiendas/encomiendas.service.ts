@@ -15,11 +15,10 @@ export enum EstadoEncomienda {
 
 @Injectable()
 export class EncomiendasService {
-
   constructor(
     @InjectRepository(Encomienda)
     private encomiendaRepo: Repository<Encomienda>,
-  ) { }
+  ) {}
 
   // Helper para obtener la fecha actual formato YYYY-MM-DD
   private getCurrentDate(): string {
@@ -34,7 +33,7 @@ export class EncomiendasService {
     const nuevaEncomienda = this.encomiendaRepo.create({
       ...createEncomiendaDto, // Copia los datos que vienen del frontend
       estado: EstadoEncomienda.RECEPCION, // Forza el estado inicial
-      fecha_prep: this.getCurrentDate(),  // Asigna fecha actual
+      fecha_prep: this.getCurrentDate(), // Asigna fecha actual
       // Si el DTO no trae la ubicación, deberías manejarlo aquí o en el DTO
     });
 
@@ -58,7 +57,10 @@ export class EncomiendasService {
    * Usar si se necesita corregir un dato (ej. un nombre mal escrito),
    * pero para cambiar estados preferir los métodos de abajo.
    */
-  async update(id: number, updateEncomiendaDto: UpdateEncomiendaDto): Promise<Encomienda> {
+  async update(
+    id: number,
+    updateEncomiendaDto: UpdateEncomiendaDto,
+  ): Promise<Encomienda> {
     const encomienda = await this.findOne(id);
     // TypeORM merge actualiza los campos que vengan en el DTO sobre la entidad
     this.encomiendaRepo.merge(encomienda, updateEncomiendaDto);

@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  ParseIntPipe
+  ParseIntPipe,
 } from '@nestjs/common';
 import { EncomiendasService } from './encomiendas.service';
 import { CreateEncomiendaDto } from './dto/create-encomienda.dto';
@@ -14,7 +14,7 @@ import { UpdateEncomiendaDto } from './dto/update-encomienda.dto';
 
 @Controller('encomiendas')
 export class EncomiendasController {
-  constructor(private readonly encomiendasService: EncomiendasService) { }
+  constructor(private readonly encomiendasService: EncomiendasService) {}
 
   // ==========================================
   // 1. ENDPOINTS ESTÁNDAR (CRUD)
@@ -39,7 +39,7 @@ export class EncomiendasController {
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateEncomiendaDto: UpdateEncomiendaDto
+    @Body() updateEncomiendaDto: UpdateEncomiendaDto,
   ) {
     // Este úsalo solo para corregir datos (ej. corregir nombre mal escrito)
     return this.encomiendasService.update(id, updateEncomiendaDto);
@@ -59,7 +59,7 @@ export class EncomiendasController {
   @Patch(':id/despacho')
   moverADespacho(
     @Param('id', ParseIntPipe) id: number,
-    @Body('ubicacion') ubicacion: string
+    @Body('ubicacion') ubicacion: string,
   ) {
     return this.encomiendasService.moverADespacho(id, ubicacion);
   }
@@ -68,7 +68,7 @@ export class EncomiendasController {
   @Patch(':id/transito')
   moverATransito(
     @Param('id', ParseIntPipe) id: number,
-    @Body('ubicacion') ubicacion: string
+    @Body('ubicacion') ubicacion: string,
   ) {
     return this.encomiendasService.moverATransito(id, ubicacion);
   }
@@ -77,7 +77,7 @@ export class EncomiendasController {
   @Patch(':id/entregado')
   marcarEntregado(
     @Param('id', ParseIntPipe) id: number,
-    @Body('ubicacion') ubicacion: string
+    @Body('ubicacion') ubicacion: string,
   ) {
     return this.encomiendasService.marcarEntregado(id, ubicacion);
   }
